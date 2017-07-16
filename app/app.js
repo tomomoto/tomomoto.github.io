@@ -8,7 +8,7 @@ $(function () {
         todayHighlight: true,
         format: "yyyy-mm-dd",
     });//.datepicker('update', new Date());
-    ko.applyBindings(new new ViewModel());
+    ko.applyBindings(new ViewModel());
 });
 
 ko.bindingHandlers.select2 = {
