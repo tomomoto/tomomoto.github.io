@@ -2,6 +2,14 @@
  * Created by Tom on 16.07.2017.
  */
 
+$(function () {
+    $("#datetimepicker").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy-mm-dd",
+    });//.datepicker('update', new Date());
+});
+
 ko.bindingHandlers.select2 = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var obj = valueAccessor(), allBindings = allBindingsAccessor();
