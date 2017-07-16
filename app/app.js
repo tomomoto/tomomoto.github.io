@@ -8,6 +8,7 @@ $(function () {
         todayHighlight: true,
         format: "yyyy-mm-dd",
     });//.datepicker('update', new Date());
+    ko.applyBindings(new new ViewModel());
 });
 
 ko.bindingHandlers.select2 = {
@@ -219,7 +220,7 @@ var ViewModel = function() {
     }
 };
 
-ko.applyBindings(new ViewModel());
+/*ko.applyBindings(new ViewModel());*/
 
 $(".js-country-data-ajax").select2({
     theme: "classic",
