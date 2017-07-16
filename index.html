@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    <link href="css/s2-docs.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <h3>Уточненные критерии выгрузки информации о лицах </h3>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Идентификаторы</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" data-bind="value: ids" placeholder="Укажите идентификаторы пользователей">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Ники пользователей</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" data-bind="value: screenNames" placeholder="Укажите ники пользователей">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>ФИО, ключевые слова</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" data-bind="value: query" placeholder="Укажите ФИО, ключевые слова">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5>Географический регион</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите страну</p>
+        </div>
+        <div class="col-9">
+            <select class="js-country-data-ajax" data-bind="valueAllowUnset: true, select2: { valuesObserver: country }" style="width: 100%;"></select>
+        </div>
+    </div>
+<!--    <div class="row">
+        <div class="col-3">
+            <p>Код страны</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" id="countryCode">
+            </div>
+        </div>
+    </div>-->
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите город</p>
+        </div>
+        <div class="col-9">
+            <select class="js-city-data-ajax" data-bind="enable: searchCountryId(), valueAllowUnset: true, select2: { valuesObserver: city }" style="width: 100%;"></select>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5>Учебное заведение</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h6>Школа</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите страну</p>
+        </div>
+        <div class="col-9">
+            <select class="js-country-data-ajax" data-bind="valueAllowUnset: true, select2: { valuesObserver: countryForSchool }" style="width: 100%;"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите город</p>
+        </div>
+        <div class="col-9">
+            <select class="js-city-data-ajax" data-bind="valueAllowUnset: true, enable: countryForSchoolId(), valueAllowUnset: true, select2: { valuesObserver: cityForSchool }" style="width: 100%;"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите школу</p>
+        </div>
+        <div class="col-9">
+            <select class="js-school-data-ajax" data-bind="enable: cityForSchoolId(), select2: { valuesObserver: school }" style="width: 100%;"></select>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h6>Университет</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите страну</p>
+        </div>
+        <div class="col-9">
+            <select class="js-country-data-ajax" data-bind="valueAllowUnset: true, select2: { valuesObserver: countryForUniversity }" style="width: 100%;"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите город</p>
+        </div>
+        <div class="col-9">
+            <select class="js-city-data-ajax" data-bind="valueAllowUnset: true, enable: countryForUniversityId(), valueAllowUnset: true, select2: { valuesObserver: cityForUniversity }" style="width: 100%;"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Выберите университет</p>
+        </div>
+        <div class="col-9">
+            <select class="js-university-data-ajax" data-bind="enable: cityForUniversityId(), select2: { valuesObserver: university }" style="width: 100%;"></select>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5>Возраст</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Нижняя граница</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" data-bind="value: ageFrom">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Верхняя граница</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" data-bind="value: ageTo">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Дата рождения</p>
+        </div>
+        <div class="col-9">
+            <div class='input-group date' id='datetimepicker' style="cursor: pointer">
+                <input type='text' class="form-control" data-bind="value: birthdate">
+                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <h5>Пол</h5>
+        </div>
+        <div class="col-9">
+            <select style="width: 100%;" data-bind="value: genderValue, options: genderOptions, valueAllowUnset: true,
+            optionsText: 'text', optionsValue: 'value', select2: { theme: 'classic', tags:true, placeholder: 'Укажите пол', allowClear: true }"></select>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5>Работа</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Название компании</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" data-bind="value: companyName" placeholder="Укажите название компании">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Название должности</p>
+        </div>
+        <div class="col-9">
+            <input type="text" class="form-control" data-bind="value: jobName" placeholder="Укажите название должности">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Идентификатор группы, в которой состоит пользователь</p>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="text" class="form-control" data-bind="value: groupId" placeholder="Укажите идентификатор группы">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Выгружать списки пользователя</p>
+        </div>
+        <div class="col-9">
+            <div class="checkbox">
+                <label><input type="checkbox" data-bind="checked: friendLists"></label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Выгружать статистику по объектам пользователя</p>
+        </div>
+        <div class="col-9">
+            <div class="checkbox">
+                <label><input type="checkbox" data-bind="checked: counters"></label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <button class="btn btn-success" data-bind="click: formJsonRequest" >Сформировать JSON запрос</button>
+</div>
+<!--<div>
+    <p>Выбраны ids: </p><span data-bind="text: ids"></span>
+    <p>Выбран пол: </p><span data-bind="text: genderValue"></span>
+    <p>ФИО: </p><span data-bind="text: query"></span>
+    <p>Ники: </p><span data-bind="text: screenNames"></span>
+    <p>ids: </p><span data-bind="text: ids"></span>
+    <p>countryName: </p><span data-bind="text: countryName()"></span>
+    <p>countryID: </p><span data-bind="text: searchCountryId()"></span>
+    <p>cityName: </p><span data-bind="text: cityName()"></span>
+    <p>cityID: </p><span data-bind="text: searchCityId()"></span>
+    <p>birthdate: </p><span data-bind="text: birthdate"></span>
+    <p>schoolName: </p><span data-bind="text: schoolName()"></span>
+    <p>schoolId: </p><span data-bind="text: schoolId()"></span>
+    <p>universityName: </p><span data-bind="text: universityName()"></span>
+    <p>universityId: </p><span data-bind="text: universityId()"></span>
+</div>-->
+<script type="text/javascript">
+
+    $(function () {
+        $("#datetimepicker").datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "yyyy-mm-dd",
+        });//.datepicker('update', new Date());
+    });
+
+    ko.bindingHandlers.select2 = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var obj = valueAccessor(), allBindings = allBindingsAccessor();
+            var $el = $(element);
+            var value = null;
+            if (obj.data) {
+                if (obj.data.results) {
+                    obj.data.results = ko.unwrap(obj.data.results);
+                } else {
+                    if (ko.isObservable(obj.data)) {
+                        obj.data.subscribe((newData) => {
+                                    obj.data = newData;
+                                    $el.select2(obj);
+                                }
+                        );
+                        obj.data = ko.unwrap(obj.data);
+                    }
+                }
+            }
+            if (obj.valuesObserver) {
+                var silent = false;
+                $el.on('change', function () {
+                    let data = $el.select2('data');
+                    if (data != obj.valuesObserver()) {
+                        silent = true;
+                        obj.valuesObserver(data);
+                    }
+                });
+                obj.valuesObserver.subscribe(function (newVal) {
+                    if (silent) {
+                        silent = false;
+                        return;
+                    }
+                    var newData, oldData;
+                    if (obj.multi) {
+                        newData = _.pluck(newVal, 'id');
+                        oldData = _.pluck($el.select2('data'), 'id');
+
+                    } else {
+                        newData = newVal;
+                        oldData = $el.select2('data');
+                    }
+                    if (!_.isEqual(newData, oldData)) {
+                        $el.select2('data', newVal);
+                    }
+                });
+                value = obj.valuesObserver();
+            }
+            $el.select2(obj);
+            if (obj.multiple) {
+                if (value && value.length > 0) {
+                    $el.select2('val', typeof obj.id === 'function' ? _.map(value, item => obj.id(item)) : _.pluck(value, 'id')
+                    )
+                    ;
+                }
+            } else {
+                if (value) {
+                    let id = typeof obj.id === 'function' ? obj.id(value) : value.id;
+                    if (id !== null && id !== undefined) {
+                        $el.select2('val', id);
+                    }
+                }
+            }
+            if (obj.valuesObserver && !obj.valuesObserver()) {
+                $el.trigger('change');
+            }
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $(element).select2('destroy');
+            });
+        },
+        update: function (element, valueAccessor) {
+            var obj = valueAccessor();
+        }
+    };
+
+    var ViewModel = function() {
+
+        this.ids = ko.observable();
+        this.screenNames = ko.observable();
+        this.query = ko.observable();
+
+        this.country = ko.observable(null);
+        this.countryName = function () {
+            if (this.country()[0])
+                return this.country()[0].full_name;
+        };
+        this.searchCountryId = function () {
+            if (this.country()[0])
+                return this.country()[0].id;
+        };
+
+        this.city = ko.observable(null);
+        this.cityName = function () {
+            if (this.city()[0])
+                return this.city()[0].full_name;
+        };
+        this.searchCityId = function () {
+            if (this.city()[0])
+                return this.city()[0].id;
+        };
+
+        this.countryForSchool = ko.observable(null);
+        this.countryForSchoolName = function () {
+            if (this.countryForSchool()[0])
+                return this.countryForSchool()[0].full_name;
+        };
+        this.countryForSchoolId = function () {
+            if (this.countryForSchool()[0])
+                return this.countryForSchool()[0].id;
+        };
+
+        this.cityForSchool = ko.observable(null);
+        this.cityForSchoolName = function () {
+            if (this.cityForSchool()[0])
+                return this.cityForSchool()[0].full_name;
+        };
+        this.cityForSchoolId = function () {
+            if (this.cityForSchool()[0])
+                return this.cityForSchool()[0].id;
+        };
+
+        this.countryForUniversity = ko.observable(null);
+        this.countryForUniversityName = function () {
+            if (this.countryForUniversity()[0])
+                return this.countryForUniversity()[0].full_name;
+        };
+        this.countryForUniversityId = function () {
+            if (this.countryForUniversity()[0])
+                return this.countryForUniversity()[0].id;
+        };
+
+        this.cityForUniversity = ko.observable(null);
+        this.cityForUniversityName = function () {
+            if (this.cityForUniversity()[0])
+                return this.cityForUniversity()[0].full_name;
+        };
+        this.cityForUniversityId = function () {
+            if (this.cityForUniversity()[0])
+                return this.cityForUniversity()[0].id;
+        };
+
+        this.school = ko.observable(null);
+        this.university = ko.observable(null);
+
+        this.universityName = function () {
+            if (this.university()[0])
+                return this.university()[0].full_name;
+        };
+        this.universityId = function () {
+            if (this.university()[0])
+                return this.university()[0].id;
+        };
+
+        this.schoolName = function () {
+            if (this.school()[0])
+                return this.school()[0].full_name;
+        };
+        this.schoolId = function () {
+            if (this.school()[0])
+                return this.school()[0].id;
+        };
+
+        this.genderOptions = ko.observableArray([{value: "m", text: "Мужской"}, {value: "f", text: "Женский"}]);
+        this.genderValue = ko.observable();
+
+        this.ageFrom = ko.observable();
+        this.ageTo = ko.observable();
+        this.birthdate = ko.observable();
+
+        this.companyName = ko.observable();
+        this.jobName = ko.observable();
+        this.groupId = ko.observable();
+
+        this.friendLists = ko.observable(false);
+        this.counters = ko.observable(false);
+
+        this.formJsonRequest = function () {
+            let json = {};
+            if (this.ids()) {
+                let arrayOfIds = this.ids().replace(/\s+/g, '').split(",");
+                if (arrayOfIds.length > 0)
+                    json.ids = arrayOfIds;
+            }
+            if (this.query())
+                json.query = this.query();
+            if (this.screenNames()) {
+                let arrayOfNicks = this.screenNames().replace(/\s+/g, '').split(",");
+                if (arrayOfNicks.length > 0)
+                    json.screenNames = arrayOfNicks;
+            }
+            if (this.searchCountryId() && (json.countryId = this.searchCountryId()));
+            if (this.searchCityId() && (json.cityId = this.searchCityId()));
+            if (this.schoolId() && (json.schoolId = this.schoolId()));
+            if (this.universityId() && (json.universityId = this.universityId()));
+            if (this.ageFrom() && (json.ageFrom = this.ageFrom()));
+            if (this.ageTo() && (json.ageTo = this.ageTo()));
+            if (this.birthdate() && (json.birthdate = this.birthdate()));
+            if (this.genderValue() && (json.gender = this.genderValue()));
+            if (this.companyName() && (json.companyName = this.companyName()));
+            if (this.jobName() && (json.jobName = this.jobName()));
+            if (this.groupId() && (json.groupId = this.groupId()));
+            if (this.friendLists() && (json.friendLists = this.friendLists()));
+            if (this.counters() && (json.counters = this.counters()));
+            console.log(json);
+            alert(JSON.stringify(json));
+        }
+    };
+
+    ko.applyBindings(new ViewModel());
+
+    $(".js-country-data-ajax").select2({
+        theme: "classic",
+        placeholder : "Выберите страну",
+        allowClear: true,
+        ajax: {
+            url: "https://api.github.com/search/repositories",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) {return markup;},
+        minimumInputLength: 1,
+        templateResult: formatRepo, // omitted for brevity, see the source of this page
+        templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    });
+
+    $(".js-city-data-ajax").select2({
+        theme: "classic",
+        placeholder : "Выберите город",
+        allowClear: true,
+        ajax: {
+            url: "https://api.github.com/search/repositories",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) {return markup;},
+        minimumInputLength: 1,
+        templateResult: formatRepo, // omitted for brevity, see the source of this page
+        templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    });
+
+    $(".js-school-data-ajax").select2({
+        theme: "classic",
+        placeholder : "Выберите школу",
+        allowClear: true,
+        ajax: {
+            url: "https://api.github.com/search/repositories",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) {return markup;},
+        minimumInputLength: 1,
+        templateResult: formatRepo, // omitted for brevity, see the source of this page
+        templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    });
+
+    $(".js-university-data-ajax").select2({
+        theme: "classic",
+        placeholder : "Выберите университет",
+        allowClear: true,
+        ajax: {
+            url: "https://api.github.com/search/repositories",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) {return markup;},
+        minimumInputLength: 1,
+        templateResult: formatRepo, // omitted for brevity, see the source of this page
+        templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    });
+
+    function formatRepo(repo) {
+        if (repo.loading) return repo.text;
+
+        var markup = "<div class='select2-result-repository clearfix'>" +
+                "<div class='select2-result-repository__avatar'><img src='" + repo.owner.avatar_url + "' /></div>" +
+                "<div class='select2-result-repository__meta'>" +
+                "<div class='select2-result-repository__title'>" + repo.full_name + "</div>";
+
+        if (repo.description) {
+            markup += "<div class='select2-result-repository__description'>" + repo.description + "</div>";
+        }
+
+        markup += "<div class='select2-result-repository__statistics'>" +
+                "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> " + repo.forks_count + " Forks</div>" +
+                "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> " + repo.stargazers_count + " Stars</div>" +
+                "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> " + repo.watchers_count + " Watchers</div>" +
+                "</div>" +
+                "</div></div>";
+
+        return markup;
+    }
+
+    function formatRepoSelection(repo) {
+        return repo.full_name || repo.text;
+    }
+
+</script>
+</body>
+</html>
